@@ -1,4 +1,4 @@
-const auth = require("../middleware/auth");
+const auth = require("../middlewares/auth");
 const express = require("express");
 const { 
     getAllUsers, 
@@ -10,11 +10,11 @@ const {
     updateUser, 
     deleteUser, 
     changePassword} = require("../controller/userControllers");
-const fileUpload = require("../middleware/fileUpload");
-const validateReq = require("../middleware/validateReq");
+const fileUpload = require("../middlewares/fileUpload");
+const validateReq = require("../middlewares/validateReq");
 const signUpSchema = require("../schema/User/signUpSchema");
 const signInSchema = require("../schema/User/signInSchema");
-const admin = require("../middleware/admin");
+const admin = require("../middlewares/admin");
 const userUpdateSchema = require("../schema/User/userUpdateSchema");
 const changePwSchema = require("../schema/User/changePwSchema");
 

@@ -1,25 +1,25 @@
 const mongoose = require('mongoose');
 const User = require('./userModel.js')
 const Schema = mongoose.Schema;
-const blogSchema = new Schema({
-    Number : {
+const twoDSchema = new Schema({
+    number : {
         type : Number,
         required : true
     },
-    Amount : {
+    amount : {
         type : Number,
         required : true
     },
-    ScreenShots : {
+    screenShots : {
         type : String,
         required : true
     },
-    User : {
+    user : {
         type : Schema.Types.ObjectId,
         ref : User,
         required : true
     }
 },{timestamps: true});
 
-const Blog = mongoose.model("Blog",blogSchema);
+const Blog = mongoose.model("Blogs",twoDSchema);
 module.exports = Blog;

@@ -30,7 +30,7 @@ app.get("/", (req,res) => {
 
 //Routes
 app.use("/api/user", userRouter);
-app.user("/api/blog",twoDRouter)
+app.use("/api/blog",twoDRouter)
 
 
 //Db connected

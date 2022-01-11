@@ -38,7 +38,7 @@ const getMyProfile = async(req, res)=>{
 };
 
 const userSignUp = async(req, res)=>{
-    const { name, email, password, age, address } = req.body;
+    const { name, email, password, address } = req.body;
 
     try {
         const hashPwd = await bcrypt.hash(password, 8);
@@ -48,7 +48,6 @@ const userSignUp = async(req, res)=>{
             name, 
             email, 
             password : hashPwd, 
-            age, 
             address, 
             avatar : req.file.path,
         });
@@ -78,7 +77,6 @@ const userSignUp = async(req, res)=>{
             name : user.name,
             email : user.email,
             isAdmin : user.isAdmin,
-            age : user.age,
             address : user.address,
             avatar : user.avatar,
             token,
@@ -106,7 +104,6 @@ const userSignIn = async(req, res)=>{
                     name : user.name,
                     email : user.email,
                     isAdmin : user.isAdmin,
-                    age : user.age,
                     address : user.address,
                     avatar : user.avatar,
                     token,

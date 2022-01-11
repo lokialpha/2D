@@ -14,10 +14,6 @@ const signUpSchema = [
         }
         return true;
     }),
-
-    body("age").isNumeric().withMessage("Please Fill Your Age"),
-
-    body("address").exists({ checkFalsy : true }).withMessage("Please Fill Your Address")
 ];
 
 module.exports = signUpSchema;
