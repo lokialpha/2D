@@ -7,7 +7,7 @@ const blogCreateSchema = [
     body("amount")
     .isNumeric()
     .withMessage("Please fill your amount"),
-    // body("screenShots").exists({checkBody : true}).withMessage("Please upload your Ss!!"),
+    // body("screenShots").exists({checkFile : true}).withMessage("Please upload your Ss!!"),
 ];
 
 module.exports = blogCreateSchema;

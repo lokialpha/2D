@@ -21,8 +21,21 @@ const createBlog = async (req,res) => {
 //get all blogs
 const getAllBlogs = async (req,res) => {
     try {
-        const blogs = await Blog.find();
-        res.send(blogs);
+        // const blogs = await Blog.find();
+        // res.send(blogs);
+        const page = Number(req.query.page) || 1;
+        const limit = Number(req.query.limit) || 2;
+        const skip = (page - 1) * limit;
+        const total  = await Blog.countDocuments({user : req.user._id});
+        const pages = Math.ceil(total/limit);
+                
+        if(page > pages){
+            res.status(400).send("There is no page with this number");
+        }
+        
+        const blogs = await Blog.find({user : req.user._id}).skip(skip).limit(limit).sort({ createdAt : -1 });
+        res.status(200).send({blogs,page,pages,totalBlogs : total});
+
     } catch (error) {
         res.sendStatus(500);
     }
@@ -47,26 +60,6 @@ const getBlogDetails = async (req,res) => {
         res.sendStatus(500);
     }
 };
-//get public blogs
-// const getPublicBlogs = async (req,res) => {
-//     //query localhost:3000/public?page=1&&limit=10
-//     try {
-//         const page = Number(req.query.page) || 1;
-//         const limit = Number(req.query.limit) || 10;
-//         const skip = (page - 1) * limit;
-//         const total  = await Blog.countDocuments({public : true});
-//         const pages = Math.ceil(total/limit);
-        
-//         if(page > pages){
-//             res.status(400).send("There is no page with this number");
-//         }
-
-//         const blogs = await Blog.find({public : true}).skip(skip).limit(limit);
-//         res.send({blogs,page,pages,totalBlogs : total});
-//     } catch (error) {
-//         res.sendStatus(500);
-//     }
-// };
 
 
 //get mine blog
@@ -84,68 +77,6 @@ const getBlogDetails = async (req,res) => {
 
 //         const blogs = await Blog.find({user : req.user._id}).skip(skip).limit(limit);
 //         res.status(200).send({blogs,page,pages,totalBlogs : total});
-//     } catch (error) {
-//         res.sendStatus(500);
-//     }
-// };
-
-// //delete blog
-// const deleteBlog = async (req,res) => {
-//     try {
-//         const {id} = req.params;
-//         try {
-//             const blogToDelete = await Blog.findOne({_id : id,user : req.user._id});
-        
-//             fs.unlinkSync(blogToDelete.blogImage);
-            
-//             //await blogToDelete.remove();
-//             await Blog.findOneAndDelete({_id : id,user : req.user._id});
-//             res.sendStatus(200);
-//         } catch (error) {
-//             res.status(404).send("U can't delete this blog");
-//         }
-        
-//     } catch (error) {
-//         console.log(error);
-//         res.sendStatus(500);
-//     }
-// };
-
-//toggle blog
-// const toggleBlog = async (req,res) => {
-//     try {
-//         const {id} = req.params;
-//         const userId = req.user._id;
-
-//         const blogToToggle = await Blog.findOne({_id : id,user:userId});
-        
-
-//         blogToToggle.public = !blogToToggle.public;
-//         const blog = await blogToToggle.save();
-//         res.send(blog);
-//     } catch (error) {
-        
-//         res.sendStatus(500);
-//     }
-// };
-
-//edit blog
-// const editBlog = async (req,res) => {
-//     try {
-//         const {id} = req.params;
-//         const userId = req.user._id;
-
-//         const blogToToggle = await Blog.findOne({_id : id,user:userId});
-        
-//         req.body.blogImage = req.file ? req.file.path : blogToToggle.blogImage;
-
-//         if(req.file){
-//             fs.unlinkSync(blogToToggle.blogImage);
-//         }
-
-//         const blog = await Blog.findOneAndUpdate({_id : id,user:userId},{...req.body},{ new : true});
-        
-//         res.send(blog);
 //     } catch (error) {
 //         res.sendStatus(500);
 //     }

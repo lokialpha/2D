@@ -9,7 +9,7 @@ const blogCreateSchema = require("../schema/blog/blogBodySchema");
 const router = express.Router();
 
 //create blog
-router.post("/",auth,fileUpload.single('image'),blogCreateSchema,validateReq,createBlog)
+router.post("/",auth,fileUpload.single('image'),blogCreateSchema,validateReq,createBlog);
 
 
 //get all blogs (admin)
