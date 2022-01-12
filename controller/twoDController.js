@@ -62,26 +62,4 @@ const getBlogDetails = async (req,res) => {
 };
 
 
-//get mine blog
-// const getMineBlog = async (req,res) => {
-//     try {
-//         const page = Number(req.query.page) || 1;
-//         const limit = Number(req.query.limit) || 3;
-//         const skip = (page - 1) * limit;
-//         const total  = await Blog.countDocuments({user : req.user._id});
-//         const pages = Math.ceil(total/limit);
-        
-//         if(page > pages){
-//             res.status(400).send("There is no page with this number");
-//         }
-
-//         const blogs = await Blog.find({user : req.user._id}).skip(skip).limit(limit);
-//         res.status(200).send({blogs,page,pages,totalBlogs : total});
-//     } catch (error) {
-//         res.sendStatus(500);
-//     }
-// };
-
-
-
 module.exports = {createBlog , getAllBlogs , getBlogDetails   };
