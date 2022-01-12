@@ -21,8 +21,6 @@ const createBlog = async (req,res) => {
 //get all blogs
 const getAllBlogs = async (req,res) => {
     try {
-        // const blogs = await Blog.find();
-        // res.send(blogs);
         const page = Number(req.query.page) || 1;
         const limit = Number(req.query.limit) || 2;
         const skip = (page - 1) * limit;
